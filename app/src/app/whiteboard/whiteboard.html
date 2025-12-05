@@ -1,0 +1,90 @@
+<div class="whiteboard-container">
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button
+        class="mode-btn"
+        [class.active]="mode() === 'draw'"
+        (click)="setMode('draw')"
+        title="Draw Mode">
+        ✏️ Draw
+      </button>
+      <button
+        class="mode-btn"
+        [class.active]="mode() === 'pan'"
+        (click)="setMode('pan')"
+        title="Pan Mode">
+        ✋ Pan
+      </button>
+      <button
+        class="mode-btn"
+        [class.active]="mode() === 'erase'"
+        (click)="setMode('erase')"
+        title="Erase Mode">
+        🧹 Erase
+      </button>
+    </div>
+
+    <div class="toolbar-group">
+      <label class="toolbar-label">
+        Color:
+        <input
+          type="color"
+          [value]="color()"
+          (input)="color.set($any($event.target).value)"
+          class="color-picker" />
+      </label>
+
+      <label class="toolbar-label">
+        Width: {{ strokeWidth() }}px
+        <input
+          type="range"
+          min="1"
+          max="20"
+          [value]="strokeWidth()"
+          (input)="strokeWidth.set(+$any($event.target).value)"
+          class="stroke-slider" />
+      </label>
+    </div>
+
+    <div class="toolbar-group">
+      <button class="file-btn" (click)="openSVG()" title="Open SVG">
+        📂 Open
+      </button>
+      <button class="file-btn" (click)="saveSVG()" title="Save SVG">
+        💾 Save
+      </button>
+    </div>
+  </div>
+
+  <svg
+    #svg
+    class="drawing-canvas"
+    [attr.viewBox]="viewBox()"
+    preserveAspectRatio="xMidYMid meet"
+    (mousedown)="onMouseDown($event)"
+    (mousemove)="onMouseMove($event)"
+    (mouseup)="onMouseUp()"
+    (mouseleave)="onMouseUp()"
+    (wheel)="onWheel($event)"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd($event)"
+    (touchcancel)="onTouchEnd($event)">
+    <rect
+      [attr.x]="viewBoxX() - 10000"
+      [attr.y]="viewBoxY() - 10000"
+      width="20000"
+      height="20000"
+      fill="white" />
+
+    @for (path of allPaths; track path.id) {
+      <path
+        [attr.d]="getPathData(path)"
+        [attr.stroke]="path.color"
+        [attr.stroke-width]="path.strokeWidth"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+    }
+  </svg>
+</div>

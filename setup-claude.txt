@@ -1,0 +1,61 @@
+How to setup claude code on windows
+-----------------------------------
+- Register at Claude.ai and setup a Pro Account
+
+- Install Claude Code:
+  irm https://claude.ai/install.ps1 | iex
+
+- Extend the Environment-Variable: Path
+  %USERPROFILE%\.local\bin          ... claude.exe is located here
+
+- cd project-folder 
+
+How to setup Angular in this folder
+-----------------------------------
+- check current node version
+  nvm ls
+  
+- install angular cli locally
+  npm install @angular/cli@20      ... this creates a package.json for angular 20
+  
+- extend package.json  
+
+  "scripts": {
+    "ng": "ng"
+  }
+  
+  ... this allows running ng by entering:   npm run ng
+  
+- check angular version
+  npm run ng version                ... displays Angular CLI: 20.x.xx
+  
+- create new app
+  npm run ng new app                ... app is the name
+  Stylesheet format: Sass (SCSS)
+  SSR              : N
+  zoneless         : N
+  AI-Tool          : Claude
+  
+- now you can remove
+  node_modules
+  package.json
+  package-lock.json
+  
+  ... since the app is created with its own 
+      app/node_modules
+	  app/package.json
+  
+- got to project folder and start
+  cd app
+  npm run ng serve
+  
+- open new terminal and install more angular components i.e. angular/material
+  npm run ng add @angular/material
+  Y
+  Azure/blue
+  
+- Default Inhalt löschen 
+  app.html (alles)
+  app.ts   ( Zeile: import { RouterOutlet } entfernen auch Referenz im @Component )
+  
+- place a .claudeignore file in the app folder

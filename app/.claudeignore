@@ -1,0 +1,26 @@
+
+# Ignore everything outside the current folder
+../*
+
+# Ignore build artifacts
+dist/
+build/
+out/
+
+# Ignore dependency folders
+node_modules/
+vendor/
+
+# Ignore environment and secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Ignore IDE configs
+.vscode/
+.idea/
+
+# Ignore logs and temp files
+*.log
+*.tmp
